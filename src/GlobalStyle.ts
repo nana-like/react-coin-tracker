@@ -1,16 +1,25 @@
 import { createGlobalStyle } from 'styled-components';
-import Normalize from 'styled-normalize';
+import reset from 'styled-reset';
 
 const GlobalStyle = createGlobalStyle`
-  ${Normalize};
+  ${reset};
 
   * {
     margin: 0;
     padding: 0;
   }
 
+  html {
+    font-size: 62.5%;
+  }
+
   body {
-    background-color: #f0f0f0;
+    background-color: ${(props) => props.theme.bgColor};
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
   }
 `;
 
