@@ -4,6 +4,9 @@ import { useEffect, useState } from 'react';
 
 const Container = styled.div`
   padding: 3rem;
+  max-width: 64rem;
+  margin: 0 auto;
+  box-sizing: border-box;
 `;
 
 const Header = styled.header`
@@ -26,7 +29,8 @@ const CoinItem = styled.li`
   font-size: 2rem;
 
   a {
-    display: block;
+    display: flex;
+    align-items: center;
     padding: 2rem;
     background-color: #fafafa;
     border-radius: 0.3rem;
@@ -37,6 +41,13 @@ const CoinItem = styled.li`
       background-color: ${(props) => props.theme.accentColor};
     }
   }
+`;
+
+const Img = styled.img`
+  display: block;
+  width: 2.8rem;
+  height: 2.8rem;
+  margin-right: 1rem;
 `;
 
 const Loader = styled.div`
@@ -77,7 +88,12 @@ function Coins() {
         <CoinList>
           {coins.map((coin, i) => (
             <CoinItem key={coin.id}>
-              <Link to={`/${coin.id}`}>{coin.name}</Link>
+              <Link to={`/${coin.id}`} state={{ name: coin.name }}>
+                <Img
+                  src={`https://cryptoicon-api.vercel.app/api/icon/${coin.symbol.toLowerCase()}`}
+                />
+                {coin.name}
+              </Link>
             </CoinItem>
           ))}
         </CoinList>
