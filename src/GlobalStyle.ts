@@ -14,6 +14,11 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
+    font-family: sans-serif;
+    font-size: 1.6rem;
+    line-height: 1.4;
+    color:${(props) => props.theme.textColor};
+    line-height: 1.2;
     background-color: ${(props) => props.theme.bgColor};
   }
 
