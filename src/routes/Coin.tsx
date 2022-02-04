@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams, useLocation, Outlet } from 'react-router-dom';
 import styled from 'styled-components';
 
 interface RouteState {
@@ -167,6 +167,9 @@ function Coin() {
               <span>{priceInfo?.max_supply}</span>
             </OverviewItem>
           </Overview>
+          <div className="tab">
+            <Outlet />
+          </div>
         </>
       )}
     </Container>
