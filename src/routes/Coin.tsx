@@ -9,6 +9,7 @@ import {
 } from 'react-router-dom';
 import styled from 'styled-components';
 import { fetchCoinInfo, fetchCoinTickers } from '../api';
+import Chart from './Chart';
 
 interface RouteState {
   state: {
@@ -82,9 +83,10 @@ const Loader = styled.span`
 `;
 
 const Container = styled.div`
-  padding: 0px 20px;
-  max-width: 480px;
+  padding: 0px 2rem;
+  max-width: 64rem;
   margin: 0 auto;
+  box-sizing: border-box;
 `;
 
 const Header = styled.header`
@@ -148,8 +150,6 @@ function Coin() {
   const priceMatch = useMatch('/:coinId/price');
   const chartMatch = useMatch('/:coinId/chart');
 
-  console.log(coinId);
-
   const { isLoading: infoLoading, data: infoData } = useQuery<InfoData>(
     ['info', coinId],
     () => fetchCoinInfo(coinId)
@@ -167,6 +167,8 @@ function Coin() {
         <Title>
           {state?.name ? state.name : loading ? 'Loading...' : infoData?.name}
         </Title>
+        {''}
+        <Link to="/">뒤로</Link>
       </Header>
       {loading ? (
         <Loader>Loading...</Loader>
