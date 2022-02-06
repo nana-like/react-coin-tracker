@@ -1,5 +1,11 @@
 import { useEffect, useState } from 'react';
-import { useParams, useLocation, Outlet } from 'react-router-dom';
+import {
+  useParams,
+  useLocation,
+  useMatch,
+  Outlet,
+  Link
+} from 'react-router-dom';
 import styled from 'styled-components';
 
 interface RouteState {
@@ -94,6 +100,7 @@ const Overview = styled.div`
   border-radius: 0.4rem;
   font-size: 2rem;
 `;
+
 const OverviewItem = styled.div`
   display: flex;
   flex-direction: column;
@@ -106,8 +113,31 @@ const OverviewItem = styled.div`
     margin-bottom: 0.4rem;
   }
 `;
+
 const Description = styled.p`
   margin: 20px 0px;
+`;
+
+const Tabs = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin: 25px 0px;
+  gap: 10px;
+`;
+
+const Tab = styled.span<{ isActive: boolean }>`
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 400;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 7px 0px;
+  border-radius: 10px;
+  color: ${(props) =>
+    props.isActive ? props.theme.accentColor : props.theme.textColor};
+  a {
+    display: block;
+  }
 `;
 
 function Coin() {
@@ -116,6 +146,8 @@ function Coin() {
   const { state } = useLocation() as RouteState;
   const [info, setInfo] = useState<InfoData>();
   const [priceInfo, setPriceInfo] = useState<PriceData>();
+  const priceMatch = useMatch('/:coinId/price');
+  const chartMatch = useMatch('/:coinId/chart');
 
   useEffect(() => {
     (async () => {
@@ -167,9 +199,15 @@ function Coin() {
               <span>{priceInfo?.max_supply}</span>
             </OverviewItem>
           </Overview>
-          <div className="tab">
-            <Outlet />
-          </div>
+          <Tabs>
+            <Tab isActive={priceMatch !== null}>
+              <Link to={`/${coinId}/price`}>Price</Link>
+            </Tab>
+            <Tab isActive={chartMatch !== null}>
+              <Link to={`/${coinId}/chart`}>Chart</Link>
+            </Tab>
+          </Tabs>
+          <Outlet />
         </>
       )}
     </Container>
