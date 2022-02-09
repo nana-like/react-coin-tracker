@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { fetchCoins } from '../api';
+import { Helmet } from 'react-helmet';
 
 const Container = styled.div`
   padding: 3rem;
@@ -72,8 +72,11 @@ function Coins() {
 
   return (
     <Container>
+      <Helmet>
+        <title>MyCoins</title>
+      </Helmet>
       <Header>
-        <Title>MyCoin</Title>
+        <Title>MyCoins</Title>
       </Header>
       {isLoading ? (
         <Loader>Loading...</Loader>

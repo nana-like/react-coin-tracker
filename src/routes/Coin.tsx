@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
+import { Helmet } from 'react-helmet';
 import {
   useParams,
   useLocation,
@@ -9,7 +9,6 @@ import {
 } from 'react-router-dom';
 import styled from 'styled-components';
 import { fetchCoinInfo, fetchCoinTickers } from '../api';
-import Chart from './Chart';
 
 interface RouteState {
   state: {
@@ -192,8 +191,8 @@ function Coin() {
               <span>${infoData?.symbol}</span>
             </OverviewItem>
             <OverviewItem>
-              <span>Open Source</span>
-              <span>{infoData?.open_source ? 'Yes' : 'No'}</span>
+              <span>Price:</span>
+              <span>${tickersData?.quotes.USD.price.toFixed(3)}</span>
             </OverviewItem>
           </Overview>
           <Description>{infoData?.description}</Description>
